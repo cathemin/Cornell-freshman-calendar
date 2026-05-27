@@ -1,0 +1,1261 @@
+<!DOCTYPE html>
+<html lang="zh-en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cornell 大一日期 & DDL 速查 2026–27</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=Libre+Franklin:wght@300;400;600&family=DM+Mono:wght@400;500&family=Noto+Sans+SC:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+/* ─── RESET ─────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+/* ─── TOKENS ─────────────────────────────────── */
+:root {
+  --red:     #B31B1B;
+  --cream:   #fdf8f2;
+  --ink:     #1a1208;
+  --soft:    #3d3020;
+  --muted:   #9a9088;
+  --rule:    #ddd6cc;
+  --gold:    #c9963a;
+  --fall:    #d97020;
+  --winter:  #3d78a0;
+  --spring:  #3d8a58;
+  --holiday: #7a4a9a;
+}
+
+/* ─── BODY ─────────────────────────────────── */
+body {
+  background: var(--cream);
+  color: var(--ink);
+  font-family: 'Libre Franklin', 'Noto Sans SC', sans-serif;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* ─── HERO ─────────────────────────────────── */
+.hero {
+  background: var(--red);
+  padding: 48px 40px 44px;
+}
+.hero-inner { max-width: 860px; margin: 0 auto; }
+.hero-eyebrow {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
+  color: rgba(255,255,255,0.45); margin-bottom: 14px;
+}
+.hero h1 {
+  font-family: 'Lora', serif;
+  font-size: clamp(40px, 6.5vw, 72px);
+  font-weight: 700; line-height: 1.0;
+  color: #fff; letter-spacing: -0.01em;
+}
+.hero h1 .sub {
+  display: block;
+  font-size: clamp(20px, 3vw, 30px);
+  font-weight: 400; line-height: 1.2;
+  margin-top: 4px; opacity: 0.9;
+}
+.hero-zh {
+  margin-top: 8px;
+  font-family: 'Noto Sans SC', sans-serif;
+  font-size: 15px; font-weight: 300;
+  color: rgba(255,255,255,0.55);
+  letter-spacing: 0.04em;
+}
+
+/* ─── SEARCH ────────────────────────────────── */
+.searchbar {
+  background: var(--ink);
+  padding: 14px 40px 0;
+}
+.searchbar-inner {
+  max-width: 860px; margin: 0 auto;
+  display: flex; align-items: center; gap: 10px;
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 8px; padding: 10px 16px;
+}
+.sb-icon { color: rgba(255,255,255,0.3); flex-shrink: 0; font-size: 14px; }
+#searchInput {
+  background: transparent; border: none; outline: none;
+  font-family: 'Libre Franklin', 'Noto Sans SC', sans-serif;
+  font-size: 13px; color: #fff; width: 100%;
+}
+#searchInput::placeholder { color: rgba(255,255,255,0.28); }
+
+/* ─── FILTER BAR ─────────────────────────────── */
+.filterbar {
+  background: var(--ink);
+  padding: 12px 40px 14px;
+  position: sticky; top: 0; z-index: 100;
+}
+.filterbar-inner {
+  max-width: 860px; margin: 0 auto;
+  display: flex; align-items: center;
+  gap: 8px; flex-wrap: wrap;
+}
+.filterbar.compact .filterbar-inner {
+  flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none;
+}
+.filterbar.compact .filterbar-inner::-webkit-scrollbar { display: none; }
+
+.fbtn {
+  display: flex; align-items: center; gap: 6px;
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 20px; padding: 6px 14px;
+  font-family: 'Libre Franklin', 'Noto Sans SC', sans-serif;
+  font-size: 12px; cursor: pointer;
+  color: rgba(255,255,255,0.55);
+  transition: all 0.15s; white-space: nowrap; flex-shrink: 0;
+}
+.fbtn:hover { border-color: rgba(255,255,255,0.5); color: #fff; }
+.fbtn .dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+.fbtn.active { color: #fff; border-color: transparent; background: var(--red); }
+
+.filterbar.compact .fbtn { padding: 4px 9px; gap: 0; }
+.filterbar.compact .fbtn .flabel { display: none; }
+.filterbar.compact .fbtn.active { padding: 4px 11px; gap: 5px; }
+.filterbar.compact .fbtn.active .flabel { display: inline; }
+
+.fcount {
+  margin-left: auto; flex-shrink: 0;
+  font-family: 'Libre Franklin', sans-serif;
+  font-size: 12px; color: rgba(255,255,255,0.35);
+}
+.fcount span { color: var(--gold); }
+
+/* ─── CONTAINER ─────────────────────────────── */
+.container { max-width: 860px; margin: 0 auto; padding: 36px 40px 60px; }
+
+/* ─── TERM BLOCK ─────────────────────────────── */
+.term-block { margin-bottom: 40px; }
+
+.term-header {
+  display: flex; align-items: center; gap: 16px;
+  margin-bottom: 0; padding-bottom: 14px;
+  border-bottom: 2px solid var(--rule);
+  cursor: pointer; user-select: none;
+}
+.term-stripe { width: 5px; height: 38px; border-radius: 3px; flex-shrink: 0; }
+.term-title {
+  font-family: 'Lora', serif;
+  font-size: 24px; font-weight: 700; color: var(--ink); line-height: 1.1;
+  flex: 1;
+}
+.term-title small {
+  display: block;
+  font-family: 'Noto Sans SC', sans-serif;
+  font-size: 13px; font-weight: 300; color: var(--muted);
+  margin-top: 2px;
+}
+.chevron {
+  font-size: 14px; color: var(--muted);
+  transition: transform 0.2s; flex-shrink: 0;
+  font-family: 'DM Mono', monospace;
+}
+.term-block.collapsed .chevron { transform: rotate(-90deg); }
+
+.term-body {
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+  padding: 4px 12px;
+  margin: 0 -12px;
+}
+.term-block.collapsed .term-body { max-height: 0 !important; }
+
+/* ─── BREAK HEADER ───────────────────────────── */
+.break-header {
+  display: flex; align-items: center; gap: 16px;
+  margin: 8px 0 0; padding-bottom: 14px;
+  border-bottom: 2px solid var(--rule);
+}
+.break-header + .term-block { margin-top: 36px; }
+.break-header.hidden { display: none; }
+
+/* ─── MONTH GROUP ────────────────────────────── */
+.month-label {
+  font-family: 'Libre Franklin', 'Noto Sans SC', sans-serif;
+  font-size: 13px; font-weight: 700; letter-spacing: 0.04em;
+  text-transform: uppercase; color: var(--soft);
+  padding: 18px 0 10px;
+  display: flex; align-items: center; gap: 10px;
+  cursor: pointer; user-select: none;
+}
+.month-label::after { content: ''; flex: 1; height: 1px; background: var(--rule); }
+.month-chevron {
+  font-size: 11px; color: var(--muted);
+  transition: transform 0.2s; flex-shrink: 0;
+  order: 99;
+  font-family: 'DM Mono', monospace;
+}
+.month-group.collapsed .month-chevron { transform: rotate(-90deg); }
+
+.month-body {
+  overflow: hidden;
+  transition: max-height 0.25s ease;
+  padding: 4px 12px;
+  margin: 0 -12px;
+}
+.month-group.collapsed .month-body { max-height: 0 !important; }
+
+/* ─── EVENT ROW ──────────────────────────────── */
+.event-row {
+  display: grid;
+  grid-template-columns: 58px 20px 1fr;
+  column-gap: 12px;
+  align-items: start;
+  padding: 10px 0;
+  border-bottom: 1px solid #ede6db;
+  transition: background 0.12s;
+  cursor: pointer;
+  position: relative;
+}
+.event-row.hidden { display: none; }
+.event-row:hover {
+  background: #faf4ec;
+  margin: 0 -10px; padding: 10px;
+  border-radius: 6px;
+  border-bottom-color: #faf4ec;
+}
+.event-row.active-row,
+.event-row.active-row:hover {
+  background: #faf4ec;
+  margin: 0 -10px; padding: 10px;
+  border-radius: 6px;
+  outline: 2px solid var(--red);
+  z-index: 2;
+}
+
+/* date col */
+.edate {
+  text-align: right;
+  font-family: 'DM Mono', monospace;
+  font-size: 13px; font-weight: 500; color: var(--soft);
+  line-height: 1.3; padding-top: 3px;
+}
+.edate .mo {
+  display: block; font-size: 9px;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: #bbb; font-weight: 400;
+}
+.edate .rng { display: block; font-size: 10px; color: #aaa; }
+
+/* axis col */
+.eaxis {
+  display: flex; flex-direction: column;
+  align-items: center; align-self: stretch;
+  padding-top: 4px;
+}
+.edot {
+  width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0;
+  box-shadow: 0 0 0 2px var(--cream); position: relative; z-index: 1;
+}
+.eline { width: 1px; flex: 1; min-height: 10px; background: var(--rule); margin-top: 4px; }
+
+/* content col */
+.econtent { padding-bottom: 4px; min-width: 0; }
+.een { font-size: 14px; font-weight: 600; color: var(--ink); line-height: 1.35; margin-bottom: 2px; }
+.ezh { font-size: 13px; font-weight: 300; color: #6a5e52; line-height: 1.4; font-family: 'Noto Sans SC', sans-serif; }
+
+/* ─── BADGES ─────────────────────────────────── */
+.badge {
+  display: inline-block;
+  font-family: 'DM Mono', monospace;
+  font-size: 10px; letter-spacing: 0.07em; text-transform: uppercase;
+  padding: 1px 7px; border-radius: 20px;
+  margin-bottom: 5px; font-weight: 500;
+}
+.bd-start, .bd-end { background: #dff0ff; color: #0a4a80; }
+.bd-deadline { background: #fee2e2; color: #c0000a; }
+.bd-exam     { background: #fff8d6; color: #7a5a00; }
+.bd-eng      { background: #fdeede; color: #7a3a00; }
+.bd-custom   { background: #ede0f5; color: #4a1a6a; }
+
+/* delete btn (custom events) */
+.delete-btn {
+  display: block; margin-top: 3px;
+  background: none; border: none; cursor: pointer;
+  font-size: 9px; color: transparent; padding: 0; line-height: 1;
+  font-family: 'DM Mono', monospace;
+  transition: color 0.2s; width: 100%; text-align: right;
+}
+.event-row:hover .delete-btn { color: #ccc; }
+.delete-btn:hover { color: var(--red) !important; }
+
+/* ─── SEARCH HIGHLIGHT ───────────────────────── */
+.hl { background: rgba(201,150,58,0.2); color: #7a5000; border-radius: 2px; padding: 0 1px; }
+
+/* ─── EMPTY STATE ────────────────────────────── */
+.empty { display: none; text-align: center; padding: 60px 20px; color: var(--muted); }
+.empty.on { display: block; }
+.empty h3 { font-family: 'Lora', serif; font-size: 18px; color: var(--ink); margin-bottom: 6px; }
+
+/* ─── ADD PANEL ──────────────────────────────── */
+.add-panel {
+  background: var(--ink);
+  padding: 20px 40px 24px;
+  border-top: 1px solid rgba(255,255,255,0.08);
+}
+.add-panel-inner { max-width: 860px; margin: 0 auto; }
+.add-panel-title {
+  font-family: 'Libre Franklin', sans-serif;
+  font-size: 12px; letter-spacing: 0.06em;
+  color: rgba(255,255,255,0.4); margin-bottom: 12px;
+}
+.add-form { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.add-form input {
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 6px; padding: 7px 12px;
+  font-family: 'Libre Franklin', 'Noto Sans SC', sans-serif;
+  font-size: 13px; color: #fff; outline: none;
+}
+#cf-date { width: 148px; color-scheme: dark; }
+#cf-en   { flex: 2; min-width: 160px; }
+#cf-zh   { flex: 1.5; min-width: 120px; }
+#cf-tag  { width: 130px; }
+.add-form input::placeholder { color: rgba(255,255,255,0.25); }
+.add-form input:focus { border-color: rgba(255,255,255,0.4); }
+#cf-add {
+  background: var(--red); color: #fff; border: none;
+  border-radius: 6px; padding: 7px 18px;
+  font-family: 'Libre Franklin', sans-serif;
+  font-size: 13px; cursor: pointer; transition: opacity 0.15s;
+}
+#cf-add:hover { opacity: 0.85; }
+.cf-fb { font-family: 'DM Mono', monospace; font-size: 12px; color: var(--gold); }
+.share-row { margin-top: 10px; display: flex; align-items: center; gap: 10px; }
+#cf-share {
+  background: transparent; border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 6px; padding: 5px 14px;
+  color: rgba(255,255,255,0.5);
+  font-family: 'Libre Franklin', sans-serif; font-size: 12px; cursor: pointer;
+  transition: all 0.15s;
+}
+#cf-share:hover { border-color: rgba(255,255,255,0.5); color: #fff; }
+
+/* ─── FOOTER ─────────────────────────────────── */
+footer {
+  background: var(--ink); color: rgba(255,255,255,0.35);
+  text-align: center; padding: 28px 20px;
+  font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.06em;
+}
+footer a { color: var(--gold); text-decoration: none; }
+
+/* ─── RESPONSIVE ─────────────────────────────── */
+@media (max-width: 600px) {
+  .hero { padding: 36px 20px 32px; }
+  .searchbar { padding: 12px 16px 0; }
+  .filterbar { padding: 10px 16px 12px; }
+  .container { padding: 24px 16px 48px; }
+  .event-row { grid-template-columns: 48px 16px 1fr; column-gap: 8px; }
+  .add-panel { padding: 16px; }
+  #cf-date { width: 130px; }
+}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-inner">
+    <p class="hero-eyebrow">Cornell University &nbsp;·&nbsp; Ithaca NY</p>
+    <h1>2026–27<span class="sub">First-Year Dates &amp; Deadlines</span></h1>
+    <p class="hero-zh">大一日期 &amp; DDL 速查</p>
+  </div>
+</header>
+
+<!-- SEARCH -->
+<div class="searchbar">
+  <div class="searchbar-inner">
+    <span class="sb-icon">🔍</span>
+    <input id="searchInput" type="text" placeholder="Type to search…">
+  </div>
+</div>
+
+<!-- FILTER -->
+<div class="filterbar" id="filterbar">
+  <div class="filterbar-inner">
+    <button class="fbtn active" data-f="all"><span class="dot" style="background:#888"></span><span class="flabel">&nbsp;全部 All</span></button>
+    <button class="fbtn" data-f="fall"><span class="dot" style="background:var(--fall)"></span><span class="flabel">&nbsp;秋季 Fall 2026</span></button>
+    <button class="fbtn" data-f="winter"><span class="dot" style="background:var(--winter)"></span><span class="flabel">&nbsp;冬季 Winter 2027</span></button>
+    <button class="fbtn" data-f="spring"><span class="dot" style="background:var(--spring)"></span><span class="flabel">&nbsp;春季 Spring 2027</span></button>
+    <button class="fbtn" data-f="holiday"><span class="dot" style="background:var(--holiday)"></span><span class="flabel">&nbsp;假期 Holiday/Break</span></button>
+    <div class="fcount">共 <span id="cnt">—</span> 条</div>
+  </div>
+</div>
+
+<!-- MAIN -->
+<main class="container">
+
+<!-- ════ FALL 2026 ════ -->
+<div class="term-block" id="b-fall">
+  <div class="term-header">
+    <div class="term-stripe" style="background:var(--fall)"></div>
+    <div class="term-title">Fall Semester 2026<small>2026 年秋季学期</small></div>
+    <span class="chevron">▾</span>
+  </div>
+  <div class="term-body">
+
+    <div class="month-group">
+      <div class="month-label">August &nbsp;八月<span class="month-chevron">▾</span></div>
+      <div class="month-body">
+        <div class="event-row" data-t="fall" data-s="move in move-in first-year students 大一新生搬入宿舍">
+          <div class="edate"><span class="mo">Aug</span>17</div>
+          <div class="eaxis"><div class="edot" style="background:var(--fall)"></div><div class="eline"></div></div>
+          <div class="econtent">
+            <div class="een">First-Year Student Move-In</div>
+            <div class="ezh">大一新生搬入宿舍</div>
+          </div>
+        </div>
+        <div class="event-row" data-t="fall" data-s="new student convocation family orientation 新生典礼 家长迎新">
+          <div class="edate"><span class="mo">Aug</span>18</div>
+          <div class="eaxis"><div class="edot" style="background:var(--fall)"></div><div class="eline"></div></div>
+          <div class="econtent">
+            <div class="een">New Student Convocation &amp; Family Orientation</div>
+            <div class="ezh">新生典礼暨家长迎新日</div>
+          </div>
+        </div>
+        <div class="event-row" data-t="fall" data-s="engineering student welcome resource fair duffield 工程学院迎新 engineering">
+          <div class="edate"><span class="mo">Aug</span>18</div>
+          <div class="eaxis"><div class="edot" style="background:var(--fall)"></div><div class="eline"></div></div>
+          <div class="econtent">
+            <span class="badge bd-eng">Engineering</span>
+            <div class="een">Student Welcome Activities &amp; Resource Fair — 1:00–5:00 PM, Duffield Hall Atrium</div>
+            <div class="ezh">工程学院迎新活动及资源展（Duffield Hall Atrium，下午1–5点）</div>
+          </div>
+        </div>
+        <div class="event-row" data-t="fall" data-s="new student orientation NSO 18 23 新生迎新周">
+          <div class="edate"><span class="mo">Aug</span><span class="rng">18–23</span></div>
+          <div class="eaxis"><div class="edot" style="background:var(--fall)"></div><div class="eline"></div></div>
+          <div class="econtent">
+            <div class="een">New Student Orientation (NSO)</div>
+            <div class="ezh">新生迎新周（共6天）</div>
+          </div>
+        </div>
+        <div class="event-row" data-t="fall" data-s="engineering advising briefings olin hall aug 19 工程学院学业指导 engineering">
+          <div class="edate"><span class="mo">Aug</span>19</div>
+          <div class="eaxis"><div class="edot" style="background:var(--fall)"></div><div class="eline"></div></div>
+          <div class="econtent">
+            <span class="badge bd-eng">Engineering</span>
+            <div class="een">First-Year Advising Briefings — 1:30–5:00 PM, Olin Hall</div>
+            <div class="ezh">工程学院大一学业指导会（Olin Hall，下午1:30–5点）</div>
+          </div>
+        </div>
+        <div class="event-row" data-t="fall" data-s="add drop begins first-years enrollment 大一新生选课加退课">
+          <div class="edate"><span class="mo">Aug</span>21</div>
+          <div class="eaxis"><div class="edot" style="background:var(--fall)"></div><div class="eline"></div></div>
+          <div class="econtent">
+            <div class="een">Add/Drop begins for First-Years (9:00 AM)</div>
+            <div class="ezh">大一新生 选课加退课开始（上午9点）</div>
+          </div>
+        </div>
+        <div class="event-row" data-t="fall" data-s="instruction begins first year writing seminar regular 7-week 1 开学 term start">
+          <div class="edate"><span class="mo">Aug</span>24</div>
+          <div class="eaxis"><div class="edot" style="background:var(--fall)"></div><div class="eline"></div></div>
+          <div class="econtent">
+            <span class="badge bd-start">▶ Term Start</span>
+            <div class="een">Instruction begins — first-year writing seminar, regular &amp; 7-week 1 session</div>
+            <div class="ezh">秋季学期正式开课（一年级写作研讨课、常规学期、小学期1）</div>
+          </div>
+        </div>
+        <div class="event-row" data-t="fall" data-s="last day add classes change credits 7-week 1 deadline 最后添加课程">
+          <div class="edate"><span class="mo">Aug</span>31</div>
+          <div class="eaxis"><div class="edot" style="background:var(--fall)"></div><div class="eline"></div></div>
+          <div class="econtent">
+            <span class="badge bd-deadline">⏰ Deadline</span>
+            <div class="een">Last day to add classes / change credits — 7-week 1 session</div>
+            <div class="ezh">小学期1：最后一天可添加课程 / 更改学分</div>
+          </div>
+        </div>
+      </div><!-- /month-body -->
+    </div><!-- /month-group Aug -->
+
+    <div class="month-group">
+      <div class="month-label">September &nbsp;九月<span class="month-chevron">▾</span></div>
+      <div class="month-body">
+        <div class="event-row" data-t="holiday" data-s="labor day holiday no classes 劳工节停课">
+          <div class="edate"><span class="mo">Sep</span>7</div>
+          <div class="eaxis"><div class="edot" style="background:var(--holiday)"></div><div class="eline"></div></div>
+          <div class="econtent">
+            <div class="een">Labor Day — No Classes</div>
+            <div class="ezh">劳工节，全校停课</div>
+          </div>
+        </div>
+        <div class="event-row" data-t="fall" data-s="last day add classes change credits first year writing seminar regular deadline 最后添加课程">
+          <div class="edate"><span class="mo">Sep</span>8</div>
+          <div class="eaxis"><div class="edot" style="background:var(--fall)"></div><div class="eline"></div></div>
+          <div class="econtent">
+            <span class="badge bd-deadline">⏰ Deadline</span>
+            <div class="een">Last day to add classes / change credits — first-year writing seminar &amp; regular session</div>
+            <div class="ezh">一年级写作研讨课及常规学期：最后一天可添加课程 / 更改学分</div>
+          </div>
+        </div>
+        <div class="event-row" data-t="fall" data-s="enrollment certifications available 在读证明可开具">
+          <div class="edate"><span class="mo">Sep</span>9</div>
+          <div class="eaxis"><div class="edot" style="background:var(--fall)"></div><div class="eline"></div></div>
+          <div class="econtent">
+            <div class="een">Enrollment certifications available</div>
+            <div class="ezh">在读证明可开始申请开具</div>
+          </div>
+        </div>
+        <div class="event-row" data-t="fall" data-s="last day drop classes 7-week 1 deadline 最后退课">
+          <div class="edate"><span class="mo">Sep</span>21</div>
+          <div class="eaxis"><div class="edot" style="background:var(--fall)"></div><div class="eline"></div></div>
+          <div class="econtent">
+            <span class="badge bd-deadline">⏰ Deadline</span>
+            <div class="een">Last day to drop classes — 7-week 1 session</div>
+            <div class="ezh">小学期1：最后一天可以退课</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="month-group">
+      <div class="month-label">October &nbsp;十月<span class="month-chevron">▾</span></div>
+      <div class="month-body">
+        <div class="event-row" data-t="fall" data-s="last day instruction 7-week 1 最后上课">
+          <div class="edate"><span class="mo">Oct</span>9</div>
+          <div class="eaxis"><div class="edot" style="background:var(--fall)"></div><div class="eline"></div></div>
+          <div class="econtent">
+            <div class="een">Last day of instruction — 7-week 1 session</div>
+            <div class="ezh">小学期1：最后一天上课</div>
+          </div>
+        </div>
+        <div class="event-row" data-t="holiday" data-s="fall break no classes 秋假停课 holiday break">
+          <div class="edate"><span class="mo">Oct</span><span class="rng">10–13</span></div>
+          <div class="eaxis"><div class="edot" style="background:var(--holiday)"></div><div class="eline"></div></div>
+          <div class="econtent">
+            <div class="een">Fall Break — No Classes (4 days)</div>
+            <div class="ezh">秋假，全校停课（共4天）</div>
+          </div>
+        </div>
+        <div class="event-row" data-t="fall" data-s="7-week 2 session begins 小学期2开课">
+          <div class="edate"><span class="mo">Oct</span>14</div>
+          <div class="eaxis"><div class="edot" style="background:var(--fall)"></div><div class="eline"></div></div>
+          <div class="econtent">
+            <div class="een">7-week 2 session begins</div>
+            <div class="ezh">小学期2 正式开课</div>
+          </div>
+        </div>
+        <div class="event-row" data-t="fall" data-s="7-week 1 final exams exam 期末考试 oct 15 22">
+          <div class="edate"><span class="mo">Oct</span><span class="rng">15–22</span></div>
+          <div class="eaxis"><div class="edot" style="background:var(--fall)"></div><div class="eline"></div></div>
+          <div class="econtent">
+            <span class="badge bd-exam">📝 Exam</span>
+            <div class="een">7-week 1 session Final Exams (8 days)</div>
+            <div class="ezh">小学期1 期末考试（共8天）</div>
+          </div>
+        </div>
+        <div class="event-row" data-t="fall" data-s="last day change grading basis drop classes first year writing seminar regular deadline 最后更改评分退课">
+          <div class="edate"><span class="mo">Oct</span>19</div>
+          <div class="eaxis"><div class="edot" style="background:var(--fall)"></div><div class="eline"></div></div>
+          <div class="econtent">
+            <span class="badge bd-deadline">⏰ Deadline</span>
+            <div class="een">Last day to change grading basis and drop classes — first-year writing seminar &amp; regular session</div>
+            <div class="ezh">一年级写作研讨课及常规学期：最后一天可更改评分方式及退课</div>
+          </div>
+        </div>
+        <div class="event-row" data-t="fall" data-s="last day add classes change credits 7-week 2 deadline 最后添加课程">
+          <div class="edate"><span class="mo">Oct</span>21</div>
+          <div class="eaxis"><div class="edot" style="background:var(--fall)"></div><div class="eline"></div></div>
+          <div class="econtent">
+            <span class="badge bd-deadline">⏰ Deadline</span>
+            <div class="een">Last day to add classes / change credits — 7-week 2 session</div>
+            <div class="ezh">小学期2：最后一天可添加课程 / 更改学分</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="month-group">
+      <div class="month-label">November &nbsp;十一月<span class="month-chevron">▾</span></div>
+      <div class="month-body">
+        <div class="event-row" data-t="fall" data-s="last day change grading basis drop classes 7-week 2 deadline 最后更改评分退课">
+          <div class="edate"><span class="mo">Nov</span>11</div>
+          <div class="eaxis"><div class="edot" style="background:var(--fall)"></div><div class="eline"></div></div>
+          <div class="econtent">
+            <span class="badge bd-deadline">⏰ Deadline</span>
+            <div class="een">Last day to change grading basis and drop classes — 7-week 2 session (11:59 PM)</div>
+            <div class="ezh">小学期2：最后一天可更改评分方式及退课（晚11:59）</div>
+          </div>
+        </div>
+        <div class="event-row" data-t="fall" data-s="spring 2027 enrollment opens first-years nov 18 20 春季选课注册大一">
+          <div class="edate"><span class="mo">Nov</span><span class="rng">18–20</span></div>
+          <div class="eaxis"><div class="edot" style="background:var(--spring)"></div><div class="eline"></div></div>
+          <div class="econtent">
+            <div class="een">Spring 2027: Enrollment opens for First-Years (7:30 AM)</div>
+            <div class="ezh">2027春季学期：大一新生选课注册开放</div>
+          </div>
+        </div>
+        <div class="event-row" data-t="holiday" data-s="thanksgiving break no classes 感恩节假期停课 holiday break">
+          <div class="edate"><span class="mo">Nov</span><span class="rng">25–29</span></div>
+          <div class="eaxis"><div class="edot" style="background:var(--holiday)"></div><div class="eline"></div></div>
+          <div class="econtent">
+            <div class="een">Thanksgiving Break — No Classes (5 days)</div>
+            <div class="ezh">感恩节假期，全校停课（共5天）</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="month-group">
+      <div class="month-label">December &nbsp;十二月<span class="month-chevron">▾</span></div>
+      <div class="month-body">
+        <div class="event-row" data-t="fall" data-s="spring 2027 deadline internal transfer 申请校内转学截止 deadline dec 1">
+          <div class="edate"><span class="mo">Dec</span>1</div>
+          <div class="eaxis"><div class="edot" style="background:var(--fall)"></div><div class="eline"></div></div>
+          <div class="econtent">
+            <span class="badge bd-deadline">⏰ Deadline</span>
+            <div class="een">Spring 2027: Deadline to apply for internal transfer (11:59 PM)</div>
+            <div class="ezh">2027春季学期：校内转学申请截止日（晚11:59）</div>
+          </div>
+        </div>
+        <div class="event-row" data-t="fall" data-s="last day instruction 7-week 2 最后上课 dec 4">
+          <div class="edate"><span class="mo">Dec</span>4</div>
+          <div class="eaxis"><div class="edot" style="background:var(--fall)"></div><div class="eline"></div></div>
+          <div class="econtent">
+            <div class="een">Last day of instruction — 7-week 2 session</div>
+            <div class="ezh">小学期2：最后一天上课</div>
+          </div>
+        </div>
+        <div class="event-row" data-t="fall" data-s="last day instruction first year writing seminar regular 最后上课 dec 7">
+          <div class="edate"><span class="mo">Dec</span>7</div>
+          <div class="eaxis"><div class="edot" style="background:var(--fall)"></div><div class="eline"></div></div>
+          <div class="econtent">
+            <div class="een">Last day of instruction — first-year writing seminar &amp; regular session</div>
+            <div class="ezh">一年级写作研讨课及常规学期：最后一天上课</div>
+          </div>
+        </div>
+        <div class="event-row" data-t="fall" data-s="study days fall 2026 备考日 dec 8 10">
+          <div class="edate"><span class="mo">Dec</span><span class="rng">8–10</span></div>
+          <div class="eaxis"><div class="edot" style="background:var(--fall)"></div><div class="eline"></div></div>
+          <div class="econtent">
+            <div class="een">Study Days (3 days)</div>
+            <div class="ezh">秋季学期备考日（共3天）</div>
+          </div>
+        </div>
+        <div class="event-row" data-t="fall" data-s="final exams fall 2026 秋季期末考试 exam dec 11 19">
+          <div class="edate"><span class="mo">Dec</span><span class="rng">11–19</span></div>
+          <div class="eaxis"><div class="edot" style="background:var(--fall)"></div><div class="eline"></div></div>
+          <div class="econtent">
+            <span class="badge bd-exam">📝 Exam</span>
+            <div class="een">Final Exams — Fall 2026 (9 days)</div>
+            <div class="ezh">秋季学期期末考试（共9天）</div>
+          </div>
+        </div>
+        <div class="event-row" data-t="fall" data-s="last day of term fall 2026 学期结束 term end dec 19">
+          <div class="edate"><span class="mo">Dec</span>19</div>
+          <div class="eaxis"><div class="edot" style="background:var(--fall)"></div><div class="eline"></div></div>
+          <div class="econtent">
+            <span class="badge bd-end">■ Term End</span>
+            <div class="een">Fall 2026: Last day of term and all academic activity</div>
+            <div class="ezh">秋季学期最后一天（含所有学术活动）</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /term-body fall -->
+</div><!-- /b-fall -->
+
+<!-- Winter Break -->
+<div class="break-header" id="bh-winter">
+  <div class="term-stripe" style="background:var(--holiday)"></div>
+  <div class="term-title">Winter Break<small>Dec 19 – Jan 25 &nbsp;·&nbsp; 寒假 &nbsp;·&nbsp; 共37天（含冬季选修学期）</small></div>
+</div>
+
+<!-- ════ WINTER 2027 ════ -->
+<div class="term-block" id="b-winter">
+  <div class="term-header">
+    <div class="term-stripe" style="background:var(--winter)"></div>
+    <div class="term-title">Winter Session 2027<small>2027 年冬季学期（选修）</small></div>
+    <span class="chevron">▾</span>
+  </div>
+  <div class="term-body">
+
+    <div class="month-group">
+      <div class="month-label">December &nbsp;十二月<span class="month-chevron">▾</span></div>
+      <div class="month-body">
+        <div class="event-row" data-t="winter" data-s="winter session begins dec 28 冬季学期开始 term start">
+          <div class="edate"><span class="mo">Dec</span>28</div>
+          <div class="eaxis"><div class="edot" style="background:var(--winter)"></div><div class="eline"></div></div>
+          <div class="econtent">
+            <span class="badge bd-start">▶ Term Start</span>
+            <div class="een">Winter 2027: Instruction begins</div>
+            <div class="ezh">2027冬季学期：正式开课</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="month-group">
+      <div class="month-label">January &nbsp;一月<span class="month-chevron">▾</span></div>
+      <div class="month-body">
+        <div class="event-row" data-t="winter" data-s="fall 2026 all grades available student center 成绩发布">
+          <div class="edate"><span class="mo">Jan</span>5</div>
+          <div class="eaxis"><div class="edot" style="background:var(--winter)"></div><div class="eline"></div></div>
+          <div class="econtent">
+            <div class="een">Fall 2026: All grades available in Student Center</div>
+            <div class="ezh">秋季学期成绩全部发布至学生中心</div>
+          </div>
+        </div>
+        <div class="event-row" data-t="holiday" data-s="martin luther king jr holiday no classes 马丁路德金纪念日 holiday">
+          <div class="edate"><span class="mo">Jan</span>18</div>
+          <div class="eaxis"><div class="edot" style="background:var(--holiday)"></div><div class="eline"></div></div>
+          <div class="econtent">
+            <div class="een">Martin Luther King, Jr. Holiday — No Classes</div>
+            <div class="ezh">马丁·路德·金纪念日，学校停课</div>
+          </div>
+        </div>
+        <div class="event-row" data-t="winter" data-s="winter 2027 last day instruction term end jan 23 冬季结束">
+          <div class="edate"><span class="mo">Jan</span>23</div>
+          <div class="eaxis"><div class="edot" style="background:var(--winter)"></div><div class="eline"></div></div>
+          <div class="econtent">
+            <span class="badge bd-end">■ Term End</span>
+            <div class="een">Winter 2027: Last day of instruction &amp; last day of term</div>
+            <div class="ezh">冬季学期：最后一天上课，学期结束</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /term-body winter -->
+</div><!-- /b-winter -->
+
+<!-- ════ SPRING 2027 ════ -->
+<div class="term-block" id="b-spring">
+  <div class="term-header">
+    <div class="term-stripe" style="background:var(--spring)"></div>
+    <div class="term-title">Spring Semester 2027<small>2027 年春季学期</small></div>
+    <span class="chevron">▾</span>
+  </div>
+  <div class="term-body">
+
+    <div class="month-group">
+      <div class="month-label">January &nbsp;一月<span class="month-chevron">▾</span></div>
+      <div class="month-body">
+        <div class="event-row" data-t="spring" data-s="spring 2027 add drop begins first-years jan 22 enrollment 春季大一选课加退课">
+          <div class="edate"><span class="mo">Jan</span>22</div>
+          <div class="eaxis"><div class="edot" style="background:var(--spring)"></div><div class="eline"></div></div>
+          <div class="econtent">
+            <div class="een">Spring 2027: Add/Drop begins for First-Years (9:00 AM)</div>
+            <div class="ezh">2027春季学期：大一新生 选课加退课开始（上午9点）</div>
+          </div>
+        </div>
+        <div class="event-row" data-t="spring" data-s="spring instruction begins first year writing seminar regular 7-week 1 开学 term start jan 25">
+          <div class="edate"><span class="mo">Jan</span>25</div>
+          <div class="eaxis"><div class="edot" style="background:var(--spring)"></div><div class="eline"></div></div>
+          <div class="econtent">
+            <span class="badge bd-start">▶ Term Start</span>
+            <div class="een">Spring 2027: Instruction begins — first-year writing seminar, regular &amp; 7-week 1 session</div>
+            <div class="ezh">2027春季学期正式开课（一年级写作研讨课、常规学期、小学期1）</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="month-group">
+      <div class="month-label">February &nbsp;二月<span class="month-chevron">▾</span></div>
+      <div class="month-body">
+        <div class="event-row" data-t="spring" data-s="last day add classes change credits 7-week 1 spring deadline 最后添加课程 feb 1">
+          <div class="edate"><span class="mo">Feb</span>1</div>
+          <div class="eaxis"><div class="edot" style="background:var(--spring)"></div><div class="eline"></div></div>
+          <div class="econtent">
+            <span class="badge bd-deadline">⏰ Deadline</span>
+            <div class="een">Last day to add classes / change credits — 7-week 1 session</div>
+            <div class="ezh">小学期1：最后一天可添加课程 / 更改学分</div>
+          </div>
+        </div>
+        <div class="event-row" data-t="spring" data-s="last day add classes change credits first year writing regular spring deadline 最后添加课程 feb 8">
+          <div class="edate"><span class="mo">Feb</span>8</div>
+          <div class="eaxis"><div class="edot" style="background:var(--spring)"></div><div class="eline"></div></div>
+          <div class="econtent">
+            <span class="badge bd-deadline">⏰ Deadline</span>
+            <div class="een">Last day to add classes / change credits — first-year writing seminar &amp; regular session</div>
+            <div class="ezh">一年级写作研讨课及常规学期：最后一天可添加课程 / 更改学分</div>
+          </div>
+        </div>
+        <div class="event-row" data-t="holiday" data-s="february break no classes 二月假期 holiday break">
+          <div class="edate"><span class="mo">Feb</span><span class="rng">13–16</span></div>
+          <div class="eaxis"><div class="edot" style="background:var(--holiday)"></div><div class="eline"></div></div>
+          <div class="econtent">
+            <div class="een">February Break — No Classes (4 days)</div>
+            <div class="ezh">二月假期，全校停课（共4天）</div>
+          </div>
+        </div>
+        <div class="event-row" data-t="spring" data-s="last day change grading basis drop classes 7-week 1 spring deadline 最后更改评分退课 feb 22">
+          <div class="edate"><span class="mo">Feb</span>22</div>
+          <div class="eaxis"><div class="edot" style="background:var(--spring)"></div><div class="eline"></div></div>
+          <div class="econtent">
+            <span class="badge bd-deadline">⏰ Deadline</span>
+            <div class="een">Last day to change grading basis and drop classes — 7-week 1 session</div>
+            <div class="ezh">小学期1：最后一天可更改评分方式及退课</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="month-group">
+      <div class="month-label">March &nbsp;三月<span class="month-chevron">▾</span></div>
+      <div class="month-body">
+        <div class="event-row" data-t="spring" data-s="last day instruction 7-week 1 spring 最后上课 mar 16">
+          <div class="edate"><span class="mo">Mar</span>16</div>
+          <div class="eaxis"><div class="edot" style="background:var(--spring)"></div><div class="eline"></div></div>
+          <div class="econtent">
+            <div class="een">Last day of instruction — 7-week 1 session</div>
+            <div class="ezh">小学期1：最后一天上课</div>
+          </div>
+        </div>
+        <div class="event-row" data-t="spring" data-s="7-week 2 session begins spring mar 17 小学期2开课">
+          <div class="edate"><span class="mo">Mar</span>17</div>
+          <div class="eaxis"><div class="edot" style="background:var(--spring)"></div><div class="eline"></div></div>
+          <div class="econtent">
+            <div class="een">7-week 2 session begins</div>
+            <div class="ezh">小学期2 正式开课</div>
+          </div>
+        </div>
+        <div class="event-row" data-t="spring" data-s="7-week 1 final exams spring exam mar 17 24 期末考试">
+          <div class="edate"><span class="mo">Mar</span><span class="rng">17–24</span></div>
+          <div class="eaxis"><div class="edot" style="background:var(--spring)"></div><div class="eline"></div></div>
+          <div class="econtent">
+            <span class="badge bd-exam">📝 Exam</span>
+            <div class="een">7-week 1 session Final Exams (8 days)</div>
+            <div class="ezh">小学期1 期末考试（共8天）</div>
+          </div>
+        </div>
+        <div class="event-row" data-t="spring" data-s="last day change grading basis drop classes first year writing regular spring deadline 最后更改评分退课 mar 22">
+          <div class="edate"><span class="mo">Mar</span>22</div>
+          <div class="eaxis"><div class="edot" style="background:var(--spring)"></div><div class="eline"></div></div>
+          <div class="econtent">
+            <span class="badge bd-deadline">⏰ Deadline</span>
+            <div class="een">Last day to change grading basis and drop classes — first-year writing seminar &amp; regular session</div>
+            <div class="ezh">一年级写作研讨课及常规学期：最后一天可更改评分方式及退课</div>
+          </div>
+        </div>
+        <div class="event-row" data-t="spring" data-s="last day add classes change credits 7-week 2 spring deadline 最后添加课程 mar 24">
+          <div class="edate"><span class="mo">Mar</span>24</div>
+          <div class="eaxis"><div class="edot" style="background:var(--spring)"></div><div class="eline"></div></div>
+          <div class="econtent">
+            <span class="badge bd-deadline">⏰ Deadline</span>
+            <div class="een">Last day to add classes / change credits — 7-week 2 session</div>
+            <div class="ezh">小学期2：最后一天可添加课程 / 更改学分</div>
+          </div>
+        </div>
+        <div class="event-row" data-t="holiday" data-s="spring break no classes 春假 holiday break mar 27 apr 4">
+          <div class="edate"><span class="mo">Mar</span><span class="rng">27–Apr 4</span></div>
+          <div class="eaxis"><div class="edot" style="background:var(--holiday)"></div><div class="eline"></div></div>
+          <div class="econtent">
+            <div class="een">Spring Break — No Classes (9 days)</div>
+            <div class="ezh">春假，全校停课（共9天）</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="month-group">
+      <div class="month-label">April &nbsp;四月<span class="month-chevron">▾</span></div>
+      <div class="month-body">
+        <div class="event-row" data-t="spring" data-s="last day change grading basis drop classes 7-week 2 spring deadline 最后更改评分退课 apr 14">
+          <div class="edate"><span class="mo">Apr</span>14</div>
+          <div class="eaxis"><div class="edot" style="background:var(--spring)"></div><div class="eline"></div></div>
+          <div class="econtent">
+            <span class="badge bd-deadline">⏰ Deadline</span>
+            <div class="een">Last day to change grading basis and drop classes — 7-week 2 session</div>
+            <div class="ezh">小学期2：最后一天可更改评分方式及退课</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="month-group">
+      <div class="month-label">May &nbsp;五月<span class="month-chevron">▾</span></div>
+      <div class="month-body">
+        <div class="event-row" data-t="spring" data-s="last day instruction first year writing regular 7-week 2 spring 最后上课 may 11 term end">
+          <div class="edate"><span class="mo">May</span>11</div>
+          <div class="eaxis"><div class="edot" style="background:var(--spring)"></div><div class="eline"></div></div>
+          <div class="econtent">
+            <div class="een">Last day of instruction — first-year writing seminar, regular &amp; 7-week 2 session</div>
+            <div class="ezh">一年级写作研讨课、常规学期及小学期2：最后一天上课</div>
+          </div>
+        </div>
+        <div class="event-row" data-t="spring" data-s="study days spring 2027 备考日 may 12 14">
+          <div class="edate"><span class="mo">May</span><span class="rng">12–14</span></div>
+          <div class="eaxis"><div class="edot" style="background:var(--spring)"></div><div class="eline"></div></div>
+          <div class="econtent">
+            <div class="een">Study Days (3 days)</div>
+            <div class="ezh">春季学期备考日（共3天）</div>
+          </div>
+        </div>
+        <div class="event-row" data-t="spring" data-s="final exams spring 2027 春季期末考试 exam may 15 22">
+          <div class="edate"><span class="mo">May</span><span class="rng">15–22</span></div>
+          <div class="eaxis"><div class="edot" style="background:var(--spring)"></div><div class="eline"></div></div>
+          <div class="econtent">
+            <span class="badge bd-exam">📝 Exam</span>
+            <div class="een">Final Exams — Spring 2027 (8 days)</div>
+            <div class="ezh">春季学期期末考试（共8天）</div>
+          </div>
+        </div>
+        <div class="event-row" data-t="spring" data-s="last day of term spring 2027 学期结束 term end may 22">
+          <div class="edate"><span class="mo">May</span>22</div>
+          <div class="eaxis"><div class="edot" style="background:var(--spring)"></div><div class="eline"></div></div>
+          <div class="econtent">
+            <span class="badge bd-end">■ Term End</span>
+            <div class="een">Spring 2027: Last day of term and all academic activity</div>
+            <div class="ezh">春季学期最后一天（含所有学术活动）</div>
+          </div>
+        </div>
+        <div class="event-row" data-t="holiday" data-s="memorial day holiday no classes may 31 阵亡将士纪念日 holiday">
+          <div class="edate"><span class="mo">May</span>31</div>
+          <div class="eaxis"><div class="edot" style="background:var(--holiday)"></div><div class="eline"></div></div>
+          <div class="econtent">
+            <div class="een">Memorial Day — No Classes</div>
+            <div class="ezh">阵亡将士纪念日，学校停课</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /term-body spring -->
+</div><!-- /b-spring -->
+
+<!-- Summer Break -->
+<div class="break-header" id="bh-summer">
+  <div class="term-stripe" style="background:var(--holiday)"></div>
+  <div class="term-title">Summer Break<small>May 22 – Aug 24 &nbsp;·&nbsp; 暑假 &nbsp;·&nbsp; 共94天</small></div>
+</div>
+
+<div class="empty" id="empty">
+  <div style="font-size:32px;margin-bottom:10px">🔍</div>
+  <h3>没有找到相关内容</h3>
+  <p style="margin-top:4px;font-size:13px;color:var(--muted)">No results — try different keywords or clear the filter.</p>
+</div>
+
+</main>
+
+<!-- ADD EVENT PANEL -->
+<div class="add-panel">
+  <div class="add-panel-inner">
+    <div class="add-panel-title">＋ 添加自定义事件 &nbsp;·&nbsp; Add your own event</div>
+    <div class="add-form">
+      <input type="date" id="cf-date">
+      <input type="text" id="cf-en" placeholder="Event name" maxlength="120">
+      <input type="text" id="cf-zh" placeholder="中文备注（选填）" maxlength="80">
+      <input type="text" id="cf-tag" placeholder="Label (default: Mine)" maxlength="20">
+      <button id="cf-add">Add</button>
+      <span id="cf-fb" class="cf-fb"></span>
+    </div>
+    <div class="share-row">
+      <button id="cf-share">🔗 Copy link with my events</button>
+      <span id="share-fb" class="cf-fb"></span>
+    </div>
+  </div>
+</div>
+
+<footer>
+  Source: <a href="https://registrar.cornell.edu/calendars-exams/academic-calendar/2026-2027" target="_blank">registrar.cornell.edu · Academic Calendar 2026–2027</a><br>
+  <a href="https://www.duffield.cornell.edu/advising/new-engineering-students/orientation/first-year-orientation/" target="_blank">duffield.cornell.edu · First-Year Orientation</a><br>
+  <span style="font-size:10px;opacity:0.4;">Catherine Min, 2026</span>
+</footer>
+
+<script>
+// ─── CORE STATE ────────────────────────────────────────────────
+let cat = 'all', q = '';
+
+// ─── FILTER ────────────────────────────────────────────────────
+document.querySelectorAll('.fbtn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.fbtn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    cat = btn.dataset.f;
+    render();
+  });
+});
+
+document.getElementById('searchInput').addEventListener('input', e => {
+  q = e.target.value;
+  render();
+});
+
+// ─── RENDER ────────────────────────────────────────────────────
+function render() {
+  const lq = q.toLowerCase().trim();
+  let n = 0;
+
+  document.querySelectorAll('.event-row').forEach(row => {
+    const t   = row.dataset.t || '';
+    const txt = (row.dataset.s || '') + ' ' +
+                (row.querySelector('.een')?.textContent || '') + ' ' +
+                (row.querySelector('.ezh')?.textContent || '');
+    const show = (cat === 'all' || t === cat) && (!lq || txt.toLowerCase().includes(lq));
+    row.classList.toggle('hidden', !show);
+
+    // highlight
+    ['.een', '.ezh'].forEach(sel => {
+      const el = row.querySelector(sel);
+      if (!el) return;
+      const orig = el.getAttribute('data-o') || el.textContent;
+      el.setAttribute('data-o', orig);
+      if (!lq) { el.innerHTML = orig; return; }
+      el.innerHTML = orig.replace(
+        new RegExp(`(${lq.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi'),
+        '<span class="hl">$1</span>'
+      );
+    });
+
+    if (show) n++;
+  });
+
+  document.getElementById('cnt').textContent = n;
+  document.getElementById('empty').classList.toggle('on', n === 0);
+
+  // hide empty month groups
+  document.querySelectorAll('.month-group').forEach(mg => {
+    const any = [...mg.querySelectorAll('.event-row')].some(r => !r.classList.contains('hidden'));
+    mg.style.display = any ? '' : 'none';
+  });
+
+  // hide empty term blocks
+  ['fall', 'winter', 'spring'].forEach(id => {
+    const b = document.getElementById('b-' + id);
+    if (!b) return;
+    const any = [...b.querySelectorAll('.event-row')].some(r => !r.classList.contains('hidden'));
+    b.style.display = any ? '' : 'none';
+  });
+
+  // break headers
+  const showBreaks = (cat === 'all' || cat === 'holiday') && !lq;
+  document.getElementById('bh-winter').classList.toggle('hidden', !showBreaks);
+  document.getElementById('bh-summer').classList.toggle('hidden', !showBreaks);
+
+}
+
+// ─── COLLAPSE — TERMS ──────────────────────────────────────────
+document.querySelectorAll('.term-header').forEach(header => {
+  const block = header.closest('.term-block');
+  const body  = block.querySelector('.term-body');
+  body.style.maxHeight = '9999px';
+
+  header.addEventListener('click', () => {
+    const isCollapsed = block.classList.contains('collapsed');
+    if (isCollapsed) {
+      block.classList.remove('collapsed');
+      body.style.maxHeight = '9999px';
+    } else {
+      block.classList.add('collapsed');
+    }
+  });
+});
+
+// ─── COLLAPSE — MONTHS ─────────────────────────────────────────
+document.querySelectorAll('.month-label').forEach(label => {
+  const group = label.closest('.month-group');
+  const body  = group.querySelector('.month-body');
+  if (!body) return;
+  body.style.maxHeight = '9999px';
+
+  label.addEventListener('click', () => {
+    const isCollapsed = group.classList.contains('collapsed');
+    if (isCollapsed) {
+      group.classList.remove('collapsed');
+      body.style.maxHeight = '9999px';
+    } else {
+      group.classList.add('collapsed');
+    }
+  });
+});
+
+// ─── SELECT ROW ────────────────────────────────────────────────
+document.addEventListener('click', e => {
+  const row = e.target.closest('.event-row');
+  if (!row || e.target.classList.contains('delete-btn')) return;
+  const was = row.classList.contains('active-row');
+  document.querySelectorAll('.event-row').forEach(r => r.classList.remove('active-row'));
+  if (!was) row.classList.add('active-row');
+});
+
+// ─── COMPACT FILTERBAR ─────────────────────────────────────────
+const filterbar = document.getElementById('filterbar');
+const searchbarEl = document.querySelector('.searchbar');
+window.addEventListener('scroll', () => {
+  filterbar.classList.toggle('compact',
+    window.scrollY > searchbarEl.offsetTop + searchbarEl.offsetHeight + 10);
+}, { passive: true });
+
+// ─── CUSTOM EVENTS ─────────────────────────────────────────────
+const STORE = 'cornell_custom_v3';
+function loadEvts()  { try { return JSON.parse(localStorage.getItem(STORE)) || []; } catch { return []; } }
+function saveEvts(e) { localStorage.setItem(STORE, JSON.stringify(e)); }
+
+function termFor(ds) {
+  const t = +new Date(ds + 'T12:00:00');
+  if (t < +new Date('2026-12-28')) return 'fall';
+  if (t <= +new Date('2027-01-24')) return 'winter';
+  return 'spring';
+}
+
+const MO_FULL = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+const ZH_FULL = ['一月','二月','三月','四月','五月','六月','七月','八月','九月','十月','十一月','十二月'];
+const MO_ABBR = ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'];
+
+function getOrMakeGroup(ds) {
+  const d = new Date(ds + 'T12:00:00');
+  const y = d.getFullYear(), m = d.getMonth();
+  const block = document.getElementById('b-' + termFor(ds));
+  if (!block) return null;
+
+  // look for existing group matching this month
+  for (const mg of block.querySelectorAll('.month-group')) {
+    const lbl = mg.querySelector('.month-label')?.textContent?.toUpperCase() || '';
+    if (lbl.includes(MO_ABBR[m])) return mg;
+  }
+
+  // create new group
+  const mg = document.createElement('div');
+  mg.className = 'month-group';
+  mg.innerHTML = `
+    <div class="month-label">${MO_FULL[m]} &nbsp;${ZH_FULL[m]}<span class="month-chevron">▾</span></div>
+    <div class="month-body"></div>`;
+
+  // wire collapse
+  const lbl  = mg.querySelector('.month-label');
+  const body = mg.querySelector('.month-body');
+  lbl.addEventListener('click', () => {
+    const isCollapsed = mg.classList.contains('collapsed');
+    if (isCollapsed) {
+      mg.classList.remove('collapsed');
+      body.style.maxHeight = '9999px';
+    } else {
+      mg.classList.add('collapsed');
+    }
+  });
+
+  // insert in month order
+  const target = new Date(y, m, 1);
+  const groups = [...block.querySelectorAll('.month-group')];
+  let before = null;
+  for (const g of groups) {
+    const glbl = g.querySelector('.month-label')?.textContent?.toUpperCase() || '';
+    const gi = MO_ABBR.findIndex(a => glbl.includes(a));
+    if (gi >= 0 && new Date(y, gi, 1) > target) { before = g; break; }
+  }
+  before ? block.insertBefore(mg, before) : block.appendChild(mg);
+  return mg;
+}
+
+function makeCustomRow(ev) {
+  const d   = new Date(ev.date + 'T12:00:00');
+  const mo  = d.toLocaleString('en-US', { month: 'short' }).toUpperCase();
+  const day = d.getDate();
+  const dotC = { fall: 'var(--fall)', winter: 'var(--winter)', spring: 'var(--spring)' }[termFor(ev.date)] || 'var(--muted)';
+  const label = ev.tag || 'Mine';
+
+  const row = document.createElement('div');
+  row.className = 'event-row custom-event-row';
+  row.dataset.t  = termFor(ev.date);
+  row.dataset.s  = ((ev.en || '') + ' ' + (ev.zh || '') + ' custom mine ' + label).toLowerCase();
+  row.dataset.id = ev.id;
+  row.innerHTML = `
+    <div class="edate"><span class="mo">${mo}</span>${day}<button class="delete-btn" data-id="${ev.id}">✕ remove</button></div>
+    <div class="eaxis"><div class="edot" style="background:${dotC}"></div><div class="eline"></div></div>
+    <div class="econtent">
+      <span class="badge bd-custom">${label}</span>
+      <div class="een">${ev.en || ''}</div>
+      ${ev.zh ? `<div class="ezh">${ev.zh}</div>` : ''}
+    </div>`;
+
+  row.querySelector('.delete-btn').addEventListener('click', e => {
+    e.stopPropagation();
+    saveEvts(loadEvts().filter(x => x.id !== ev.id));
+    row.remove();
+    render();
+  });
+
+  return row;
+}
+
+function insertCustomRow(ev) {
+  const mg = getOrMakeGroup(ev.date);
+  if (!mg) return;
+  const body = mg.querySelector('.month-body');
+  if (!body) return;
+  const row = makeCustomRow(ev);
+  const day = new Date(ev.date + 'T12:00:00').getDate();
+  const siblings = [...body.querySelectorAll('.event-row')];
+  let before = null;
+  for (const s of siblings) {
+    const sDay = parseInt(s.querySelector('.edate')?.textContent);
+    if (!isNaN(sDay) && sDay > day) { before = s; break; }
+  }
+  before ? body.insertBefore(row, before) : body.appendChild(row);
+
+  // Auto-expand month and term so the new event is visible
+  mg.classList.remove('collapsed');
+  body.style.maxHeight = '9999px';
+  const termBlock = mg.closest('.term-block');
+  if (termBlock) {
+    termBlock.classList.remove('collapsed');
+    const tb = termBlock.querySelector('.term-body');
+    if (tb) tb.style.maxHeight = '9999px';
+  }
+}
+
+// Add button
+document.getElementById('cf-add').addEventListener('click', () => {
+  const date = document.getElementById('cf-date').value;
+  const en   = document.getElementById('cf-en').value.trim();
+  const zh   = document.getElementById('cf-zh').value.trim();
+  const tag  = document.getElementById('cf-tag').value.trim();
+  const fb   = document.getElementById('cf-fb');
+
+  if (!date || !en) {
+    fb.textContent = '请填写日期和标题';
+    setTimeout(() => fb.textContent = '', 2000);
+    return;
+  }
+  const ev = { id: Date.now().toString(), date, en, zh, tag };
+  const evts = loadEvts(); evts.push(ev); saveEvts(evts);
+  insertCustomRow(ev);
+  render();
+  ['cf-date','cf-en','cf-zh','cf-tag'].forEach(id => document.getElementById(id).value = '');
+  fb.textContent = '已添加 ✓';
+  setTimeout(() => fb.textContent = '', 2000);
+});
+
+// Share link
+document.getElementById('cf-share').addEventListener('click', () => {
+  const evts = loadEvts();
+  const fb = document.getElementById('share-fb');
+  if (evts.length === 0) {
+    fb.textContent = '你还没有添加自定义事件';
+    setTimeout(() => fb.textContent = '', 2500);
+    return;
+  }
+  const encoded = btoa(unescape(encodeURIComponent(JSON.stringify(evts))));
+  const url = location.href.split('?')[0] + '?d=' + encoded;
+  navigator.clipboard.writeText(url).then(() => {
+    fb.textContent = '已复制 ✓';
+    setTimeout(() => fb.textContent = '', 2500);
+  });
+});
+
+// On load: import from URL or localStorage
+(function init() {
+  const params = new URLSearchParams(location.search);
+  const d = params.get('d');
+  if (d) {
+    try {
+      const evts = JSON.parse(decodeURIComponent(escape(atob(d))));
+      saveEvts(evts);
+      history.replaceState(null, '', location.pathname);
+    } catch(e) {}
+  }
+  loadEvts().forEach(ev => insertCustomRow(ev));
+  render();
+})();
+</script>
+</body>
+</html>
