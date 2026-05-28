@@ -1099,30 +1099,35 @@ function termFor(ds) {
 
 const MO_FULL = ['January','February','March','April','May','June','July','August','September','October','November','December'];
 const ZH_FULL = ['一月','二月','三月','四月','五月','六月','七月','八月','九月','十月','十一月','十二月'];
-const MO_ABBR = ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'];
 
 function getOrMakeGroup(ds) {
   const d = new Date(ds + 'T12:00:00');
-  const y = d.getFullYear(), m = d.getMonth();
-  const block = document.getElementById('b-' + termFor(ds));
+  const m = d.getMonth(); // 0-indexed
+  const term = termFor(ds);
+  const block = document.getElementById('b-' + term);
   if (!block) return null;
 
-  // look for existing group matching this month
+  // Find existing group by matching month name exactly at start of label
   for (const mg of block.querySelectorAll('.month-group')) {
-    const lbl = mg.querySelector('.month-label')?.textContent?.toUpperCase() || '';
-    if (lbl.includes(MO_ABBR[m])) return mg;
+    const lbl = mg.querySelector('.month-label');
+    if (!lbl) continue;
+    // Use firstChild text node to avoid matching chevron text
+    const labelText = lbl.childNodes[0]?.textContent?.trim() || '';
+    if (labelText.startsWith(MO_FULL[m])) return mg;
   }
 
-  // create new group
+  // Create new group
   const mg = document.createElement('div');
   mg.className = 'month-group';
-  mg.innerHTML = `
-    <div class="month-label">${MO_FULL[m]} &nbsp;${ZH_FULL[m]}<span class="month-chevron">▾</span></div>
-    <div class="month-body"></div>`;
+  const body = document.createElement('div');
+  body.className = 'month-body';
+  body.style.maxHeight = '9999px';
+  const lbl = document.createElement('div');
+  lbl.className = 'month-label';
+  lbl.innerHTML = `${MO_FULL[m]} &nbsp;${ZH_FULL[m]}<span class="month-chevron">▾</span>`;
+  mg.appendChild(lbl);
+  mg.appendChild(body);
 
-  // wire collapse
-  const lbl  = mg.querySelector('.month-label');
-  const body = mg.querySelector('.month-body');
   lbl.addEventListener('click', () => {
     const isCollapsed = mg.classList.contains('collapsed');
     if (isCollapsed) {
@@ -1133,16 +1138,18 @@ function getOrMakeGroup(ds) {
     }
   });
 
-  // insert in month order
-  const target = new Date(y, m, 1);
-  const groups = [...block.querySelectorAll('.month-group')];
+  // Insert in month order within term block
+  const groups = [...block.querySelectorAll(':scope > .term-body > .month-group')];
   let before = null;
   for (const g of groups) {
-    const glbl = g.querySelector('.month-label')?.textContent?.toUpperCase() || '';
-    const gi = MO_ABBR.findIndex(a => glbl.includes(a));
-    if (gi >= 0 && new Date(y, gi, 1) > target) { before = g; break; }
+    const gLbl = g.querySelector('.month-label')?.childNodes[0]?.textContent?.trim() || '';
+    const gm = MO_FULL.findIndex(mo => gLbl.startsWith(mo));
+    if (gm >= 0 && gm > m) { before = g; break; }
   }
-  before ? block.insertBefore(mg, before) : block.appendChild(mg);
+  const termBody = block.querySelector('.term-body');
+  if (termBody) {
+    before ? termBody.insertBefore(mg, before) : termBody.appendChild(mg);
+  }
   return mg;
 }
 
@@ -1184,15 +1191,17 @@ function insertCustomRow(ev) {
   if (!body) return;
   const row = makeCustomRow(ev);
   const day = new Date(ev.date + 'T12:00:00').getDate();
-  const siblings = [...body.querySelectorAll('.event-row')];
+
+  // Insert in day order — only look at direct children
   let before = null;
-  for (const s of siblings) {
-    const sDay = parseInt(s.querySelector('.edate')?.textContent);
-    if (!isNaN(sDay) && sDay > day) { before = s; break; }
+  for (const child of [...body.children]) {
+    if (!child.classList.contains('event-row')) continue;
+    const sDay = parseInt(child.querySelector('.edate')?.textContent);
+    if (!isNaN(sDay) && sDay > day) { before = child; break; }
   }
   before ? body.insertBefore(row, before) : body.appendChild(row);
 
-  // Auto-expand month and term so the new event is visible
+  // Auto-expand
   mg.classList.remove('collapsed');
   body.style.maxHeight = '9999px';
   const termBlock = mg.closest('.term-block');
